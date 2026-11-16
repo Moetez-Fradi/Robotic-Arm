@@ -35,18 +35,6 @@ Control firmware and Host PC Python stack for a 6-DOF color-sorting manipulator 
    python verify_subsystem.py
    ```
 
-## Vision Pipeline Integration (`motion_api.py`)
-
-Import `ArmMotionController` and call `sort_object(x_mm, y_mm, color)` with the detected object's workspace coordinates (in millimeters relative to the arm base) and color label (`"RED"`, `"GREEN"`, `"BLUE"`, `"YELLOW"`):
-
-```python
-from motion_api import ArmMotionController
-
-# Use "socket://127.0.0.1:5555" for simulation, or "COM5" / "/dev/ttyUSB0" on hardware
-arm_ctrl = ArmMotionController(port="socket://127.0.0.1:5555")
-arm_ctrl.sort_object(x_mm=220.0, y_mm=40.0, color="RED")
-```
-
 ## Flashing Hardware
 
 * **ESP32 Bridge:** Flash `esp32_can_bridge.ino` (`ESP32 Dev Module`, `921600` baud). Wire `GPIO 5` (`TX`) and `GPIO 4` (`RX`) to the `SN65HVD230` transceiver with a `120 Ω` termination resistor across `CAN_H` / `CAN_L`.
