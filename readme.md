@@ -10,6 +10,13 @@ Control firmware and Host PC Python stack for a 6-DOF color-sorting manipulator 
 │   │   └── esp32_can_bridge.ino   # Standalone USB (921600 baud) <-> CAN (500 kbps) bridge
 │   └── stm32_joint_node/
 │       └── joint_node_fw.ino      # Standalone firmware for all 4 STM32 joint PCBs
+├── vision/
+│   ├── README.md                  # Camera setup, calibration, usage, coordinate frame
+│   ├── detector.py                # One-frame cube colour + position detection (OpenCV)
+│   ├── mat.py                     # Printable pick mat (ArUco markers + grey colour reference)
+│   ├── calibrate.py               # Lens and colour calibration tool
+│   ├── live.py                    # `Vision` class for the motion code + live viewer
+│   └── docs/                      # Simulated test report, design book section 6
 └── software/
     ├── requirements.txt           # Python dependencies
     ├── arm_interface.py           # Low-level USB-CAN driver & 50 Hz telemetry listener
@@ -34,6 +41,25 @@ Control firmware and Host PC Python stack for a 6-DOF color-sorting manipulator 
    ```bash
    python verify_subsystem.py
    ```
+
+## Computer Vision
+
+The `vision/` package tells the motion code **whether there is a cube, its colour (`red` / `blue`) and its position** in the arm's frame. It uses one USB webcam looking at a printed pick mat (ArUco markers + a grey colour reference). It needs only `opencv-python` and `numpy`. Run the commands from the repository root:
+
+```bash
+pip install -r vision/requirements.txt
+python -m vision.mat                                           # makes the A4 pick mat to print
+python -m vision.calibrate colours --camera 0 --names red blue # store the two cube colours
+python -m vision.live --camera 0                               # live viewer
+```
+
+```python
+from vision.live import Vision
+
+r = Vision(camera=0).read_stable()   # r.colour, r.confidence, r.x_mm, r.y_mm, r.z_mm (arm frame, mm)
+```
+
+Tested on simulated camera frames only (100 % correct colour over 600 frames with varied lighting); the real webcam is not tested yet. See [`vision/README.md`](vision/README.md) for setup, calibration and the coordinate frame the motion code should expect.
 
 ## Flashing Hardware
 
