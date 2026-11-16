@@ -20,10 +20,8 @@ Control firmware and Host PC Python stack for a 6-DOF color-sorting manipulator 
 └── software/
     ├── requirements.txt           # Python dependencies
     ├── arm_interface.py           # Low-level USB-CAN driver & 50 Hz telemetry listener
-    ├── motion_api.py              # High-level IK & pick-and-place API (Vision handoff)
     ├── sim_virtual_arm.py         # Digital twin simulator (ESP32 + 4x STM32 nodes)
     ├── verify_subsystem.py        # Automated 5-stage subsystem verification suite
-    └── manual_jog.py              # Interactive CLI for single-joint hardware bring-up
 ```
 
 ## Quick Start (Simulation Mode — No Hardware Required)
