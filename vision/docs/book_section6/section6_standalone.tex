@@ -1,0 +1,30 @@
+% Standalone pages of section 6, styled like the design book, to append to DesignBookV0.pdf.
+% Compile: docker run --rm -v "<this folder>:/work" -w /work texlive/texlive:latest pdflatex section6_standalone.tex (twice)
+\documentclass[11pt,a4paper]{article}
+\usepackage[a4paper,margin=2.2cm,headheight=14pt]{geometry}
+\usepackage{mathptmx}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage[labelfont=bf,labelsep=period,font=small]{caption}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small RAS Build Challenge 2026 -- Project 3, Robotic Arm}
+\fancyhead[R]{\small Design Book}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.6em}
+\usepackage{titlesec}
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+\captionsetup[table]{skip=6pt}
+\setcounter{page}{18}      % the book ends on page 17 (+ cover): continue after it
+\setcounter{section}{5}    % this is section 6
+\setcounter{table}{11}     % the book's last table is 11
+\setcounter{figure}{14}    % the book's last figure is 14
+\begin{document}
+\section{Computer vision}
+\input{section6_computer_vision.tex}
+\end{document}
